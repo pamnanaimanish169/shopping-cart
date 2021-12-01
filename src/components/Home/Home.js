@@ -1,6 +1,8 @@
 import  './Home.css';
 import  React   from    'react';
 import NavigationBar from '../Navbar/Navbar';
+import  ItemsCard   from    '../Card/Card';
+import  Footer  from    '../Footer/Footer';
 
 class   Home    extends React.Component {
 
@@ -12,6 +14,8 @@ class   Home    extends React.Component {
         return  (
             <div>
                 <NavigationBar />
+                <ItemsCard />
+                <Footer />
             </div>
         )
     }

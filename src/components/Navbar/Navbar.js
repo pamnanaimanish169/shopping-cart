@@ -1,12 +1,15 @@
 import  './Navbar.css';
 import  React   from    'react';
 import Navbar from 'react-bootstrap/Navbar';
+import  Footer  from    '../Footer/Footer';
+import  ItemsCard    from    '../Card/Card';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+
 
 class NavigationBar    extends    React.Component {
     constructor(props)  {
@@ -27,14 +30,6 @@ class NavigationBar    extends    React.Component {
                     </Navbar.Collapse>
                 </Container>
                 </Navbar>
-
-                {/* Something in between START */}
-                <div>Something in between!</div>
-                {/* Something in between END */}
-
-                <div    className="footer">
-                    Footer
-                </div>
             </div>
         )
     }
