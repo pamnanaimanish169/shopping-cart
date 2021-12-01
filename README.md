@@ -8,4 +8,4 @@
 - Integrate Login/Logout functionality
   - Integrate traditional email login
   - Integrate social sign in login (like facebook, google, etc)
-- 
+- Integrate API through Firebase.
