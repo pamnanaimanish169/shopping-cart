@@ -4,10 +4,53 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import  {   Row,    Col,    Form    }   from    'react-bootstrap';
 import Button from 'react-bootstrap/Button'
 import  './Card.css';
+import  axios from    'axios';
+
+const   baseURL =   'https://axios-http.com/docs/api_intro';
+const   cartItems   =   [
+    {   
+        id      :   1,
+        img :   'https://i.imgur.com/fSlaW1x.jpg',   
+        title   :   'Colored Shirts for Men',
+        text    :   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {   
+        id      :   2,
+        img :   'https://i.imgur.com/fSlaW1x.jpg',   
+        title   :   'Colored Shirts for Men',
+        text    :   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {   
+        id      :   3,
+        img :   'https://i.imgur.com/fSlaW1x.jpg',   
+        title   :   'Colored Shirts for Men',
+        text    :   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {   
+        id      :   4,
+        img :   'https://i.imgur.com/fSlaW1x.jpg',   
+        title   :   'Colored Shirts for Men',
+        text    :   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+    {   
+        id      :   5,
+        img :   'https://i.imgur.com/fSlaW1x.jpg',   
+        title   :   'Colored Shirts for Men',
+        text    :   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    },
+]
 
 class   ItemsCard    extends React.Component {
     constructor(props)  {
         super(props);
+    }
+
+    componentDidMount() {
+        this.getCartData();
+    }
+
+    getCartData()   {
+        console.log('get cart data');
     }
 
     render()    {
@@ -21,96 +64,28 @@ class   ItemsCard    extends React.Component {
                     md-> for medium devices-> >=992px
                     lg-> for large devices-> >=1200px
                     */}
+                    
+                    
                     <Row xs={1} sm={2}  md={3} lg={4} className="g-4">
-                        <Col>
-                            <Card>
-                                <Card.Img  src="/958-100x160.jpg" />
-                                
-                                <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
-                                    <Card.Text>
-                                        This is a wider card with supporting text below as a natural lead-in to
-                                        additional content. This content is a little bit longer.
-                                    </Card.Text>
-                                </Card.Body>
+                    {
+                        cartItems.map((element) =>  (
+                            <Col>
+                                <Card>
+                                    <Card.Img  src={element.img} />
+                                    
+                                    <Card.Body>
+                                        <Card.Title>{element.title}</Card.Title>
+                                        <Card.Text>
+                                            {element.text}
+                                        </Card.Text>
+                                    </Card.Body>
 
-                                <Button variant="primary">Add to Cart</Button>
+                                    <Button variant="primary">Add to Cart</Button>
 
-
-                            </Card>
-                        </Col>
-
-                        <Col>
-                            <Card>
-                                <Card.Img  src="/958-100x160.jpg" />
-                                
-                                <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
-                                    <Card.Text>
-                                        This is a wider card with supporting text below as a natural lead-in to
-                                        additional content. This content is a little bit longer.
-                                    </Card.Text>
-                                </Card.Body>
-
-                                <Button variant="primary">Add to Cart</Button>
-
-
-                            </Card>
-                        </Col>
-
-                        <Col>
-                            <Card>
-                                <Card.Img  src="/958-100x160.jpg" />
-                                
-                                <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
-                                    <Card.Text>
-                                        This is a wider card with supporting text below as a natural lead-in to
-                                        additional content. This content is a little bit longer.
-                                    </Card.Text>
-                                </Card.Body>
-
-                                <Button variant="primary">Add to Cart</Button>
-
-
-                            </Card>
-                        </Col>
-
-                        <Col>
-                            <Card>
-                                <Card.Img  src="/958-100x160.jpg" />
-                                
-                                <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
-                                    <Card.Text>
-                                        This is a wider card with supporting text below as a natural lead-in to
-                                        additional content. This content is a little bit longer.
-                                    </Card.Text>
-                                </Card.Body>
-
-                                <Button variant="primary">Add to Cart</Button>
-
-
-                            </Card>
-                        </Col>
-
-                        <Col>
-                            <Card>
-                                <Card.Img  src="/958-100x160.jpg" />
-                                
-                                <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
-                                    <Card.Text>
-                                        This is a wider card with supporting text below as a natural lead-in to
-                                        additional content. This content is a little bit longer.
-                                    </Card.Text>
-                                </Card.Body>
-
-                                <Button variant="primary">Add to Cart</Button>
-
-
-                            </Card>
-                        </Col>
+                                </Card>
+                            </Col>
+                        ))
+                    }
                     </Row>
 
                 </CardGroup>
