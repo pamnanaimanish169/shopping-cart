@@ -1,0 +1,9 @@
+.card-img   {
+    height: 500px;
+    object-fit: contain;
+}
+
+/* For card of different sizes */
+.card   {
+    height: 100%;
+}
