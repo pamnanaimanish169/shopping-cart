@@ -16,7 +16,6 @@ class   ItemsCard    extends React.Component {
         this.state  =   {
             Items    : [],
             cartItems   :   [],
-            
         }
 
         this.handleClick = this.handleClick.bind(this);
@@ -46,6 +45,10 @@ class   ItemsCard    extends React.Component {
         console.log(element);
         this.state.cartItems.push(element);
         console.log(this.state.cartItems);
+        console.log(this.state.cartItems.length);
+
+        // Parent child communication
+        this.props.changeLink(this.state.cartItems.length);
     }
 
     render()    {
@@ -79,7 +82,7 @@ class   ItemsCard    extends React.Component {
                                     </Card.Body>
 
                                     <Button variant="primary" onClick={() => this.handleClick(element)}>Add to Cart</Button>
-                                    <Navbar  props={element}/>
+                                    <Navbar  props={this.state.cartItems}/>
                                 </Card>
                             </Col>
                         ))

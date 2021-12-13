@@ -15,6 +15,8 @@ class NavigationBar extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log(this.props);
+
         this.state = {
             show : false
         }
@@ -40,7 +42,7 @@ class NavigationBar extends React.Component {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
-                                <Button variant="primary" onClick={this.handleShow}> <FontAwesomeIcon icon={faShoppingCart} /></Button>
+                                <Button variant="primary" onClick={this.handleShow}> <FontAwesomeIcon icon={faShoppingCart} />{this.props.quantity}</Button>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

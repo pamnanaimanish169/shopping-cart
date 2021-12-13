@@ -8,13 +8,23 @@ class   Home    extends React.Component {
 
     constructor(props)  {
         super(props);
+
+        this.state = {
+            quantity : 0
+        };
+    }
+
+    onChangeLinkName(newName) {
+        this.setState({
+            quantity : newName
+        });
     }
 
     render()    {
         return  (
             <div>
-                <NavigationBar />
-                <ItemsCard />
+                <NavigationBar quantity={this.state.quantity} />
+                <ItemsCard changeLink={this.onChangeLinkName.bind(this)}/>
                 <Footer />
             </div>
         )
