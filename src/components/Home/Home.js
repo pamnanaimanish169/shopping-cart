@@ -10,7 +10,8 @@ class   Home    extends React.Component {
         super(props);
 
         this.state = {
-            quantity : 0
+            quantity : 0,
+            cartItems : [],
         };
     }
 
@@ -20,11 +21,17 @@ class   Home    extends React.Component {
         });
     }
 
+    onChangeCartItems(cartItems) {
+        this.setState({
+            cartItems : cartItems
+        });
+    }
+
     render()    {
         return  (
             <div>
-                <NavigationBar quantity={this.state.quantity} />
-                <ItemsCard changeLink={this.onChangeLinkName.bind(this)}/>
+                <NavigationBar cartItems={this.state.cartItems} quantity={this.state.quantity} />
+                <ItemsCard changeLink={this.onChangeLinkName.bind(this)} changeCartItems={this.onChangeCartItems.bind(this)}/>
                 <Footer />
             </div>
         )

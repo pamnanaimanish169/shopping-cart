@@ -1,3 +1,24 @@
 .navbar-collapse    {
     flex-grow: 0 !important;
 }
+
+.cartItems  {
+    display: inline-flex;
+}
+
+.btn.btn-danger {
+    margin: 5px;
+}
+
+.input-group-text   {
+    margin: 5px;
+}
+
+.btn.btn-primary    {
+    margin: 5px;
+}
+
+.modal-footer {
+    display: block !important;
+    float: left;
+}

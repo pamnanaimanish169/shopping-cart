@@ -49,6 +49,7 @@ class   ItemsCard    extends React.Component {
 
         // Parent child communication
         this.props.changeLink(this.state.cartItems.length);
+        this.props.changeCartItems(this.state.cartItems);
     }
 
     render()    {

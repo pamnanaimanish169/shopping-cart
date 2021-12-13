@@ -10,6 +10,9 @@ import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-bootstrap/Modal';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Badge from 'react-bootstrap/Badge';
+import { InputGroup } from 'react-bootstrap';
 
 class NavigationBar extends React.Component {
     constructor(props) {
@@ -18,7 +21,7 @@ class NavigationBar extends React.Component {
         console.log(this.props);
 
         this.state = {
-            show : false
+            show: false
         }
 
         this.handleClose = this.handleClose.bind(this);
@@ -26,11 +29,11 @@ class NavigationBar extends React.Component {
     }
 
     handleShow() {
-        this.setState({show : true});
+        this.setState({ show: true });
     }
 
     handleClose() {
-        this.setState({show : false});
+        this.setState({ show: false });
     }
 
     render() {
@@ -49,16 +52,76 @@ class NavigationBar extends React.Component {
                 </Navbar>
 
                 <Modal show={this.state.show} onHide={this.handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                    <Modal.Body>
+                        <ListGroup as="ol">
+                            <ListGroup.Item
+                                as="li"
+                                className="d-flex justify-content-between align-items-start"
+                            >
+                                <div className="ms-2 me-auto">
+                                    <div className="fw-bold">Subheading</div>
+
+                                    <div className="cartItems">
+                                        <Button variant="danger">-</Button>
+                                        <InputGroup.Text>1</InputGroup.Text>
+                                        <Button variant="primary">+</Button>
+                                    </div>
+                                    
+                                </div>
+                                <Badge variant="primary" pill>
+                                    14
+                                </Badge>
+                            </ListGroup.Item>
+                            <ListGroup.Item
+                                as="li"
+                                className="d-flex justify-content-between align-items-start"
+                            >
+                                <div className="ms-2 me-auto">
+                                    <div className="fw-bold">Subheading</div>
+
+                                    <div className="cartItems">
+                                        <Button variant="danger">-</Button>
+                                        <InputGroup.Text>1</InputGroup.Text>
+                                        <Button variant="primary">+</Button>
+                                    </div>
+                                    
+                                </div>
+                                <Badge variant="primary" pill>
+                                    14
+                                </Badge>
+                            </ListGroup.Item>
+                            <ListGroup.Item
+                                as="li"
+                                className="d-flex justify-content-between align-items-start"
+                            >
+                                <div className="ms-2 me-auto">
+                                    <div className="fw-bold">Subheading</div>
+
+                                    <div className="cartItems">
+                                        <Button variant="danger">-</Button>
+                                        <InputGroup.Text>1</InputGroup.Text>
+                                        <Button variant="primary">+</Button>
+                                    </div>
+                                    
+                                </div>
+                                <Badge variant="primary" pill>
+                                    14
+                                </Badge>
+                            </ListGroup.Item>
+                        </ListGroup>
+                    </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
+                        {/* Events for closing modal START */}
+                        {/* <Button variant="secondary" onClick={this.handleClose}>
                             Close
                         </Button>
                         <Button variant="primary" onClick={this.handleClose}>
                             Save Changes
+                        </Button> */}
+                        {/* Events for closing modal END */}
+                        
+                        <Button variant="danger">
+                            Empty Cart
                         </Button>
                     </Modal.Footer>
                 </Modal>
