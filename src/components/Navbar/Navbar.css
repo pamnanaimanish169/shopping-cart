@@ -22,3 +22,13 @@
     display: block !important;
     float: left;
 }
+
+.cartItems-floatRight {
+    display: inline-block;
+    float: right;
+    margin: 5px;
+}
+
+.ms-2.me-auto {
+    width: 100%;
+}

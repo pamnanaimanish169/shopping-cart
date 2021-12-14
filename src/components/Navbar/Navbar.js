@@ -14,6 +14,9 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 import { InputGroup } from 'react-bootstrap';
 
+
+const basAPIUrl = 'https://fakestoreapi.com/carts/user/2';
+
 class NavigationBar extends React.Component {
     constructor(props) {
         super(props);
@@ -21,15 +24,67 @@ class NavigationBar extends React.Component {
         console.log(this.props);
 
         this.state = {
-            show: false
+            show: false,
+            cartItems: [],
+            uniqueCartItems : []
         }
 
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
     }
 
+    componentDidMount() {
+        console.log('i am inside componentDidMount');
+        console.log(this.props);
+
+
+    }
+
     handleShow() {
         this.setState({ show: true });
+        console.log(this.props);
+
+        // Calculate the cart & update items accordingly
+        this.state.cartItems = this.props.cartItems;
+
+        console.log(this.state.cartItems);
+
+        const counts = {};
+
+        this.state.cartItems.forEach((element) => {
+            // change the quantity as per the count
+            counts[element.title] = (counts[element.title] || 0)  + 1;
+
+            element['quantity'] = counts[element.title];
+
+            // remove the duplicate item so that it dosen't appear again.
+
+
+        });
+
+        console.log(counts);
+
+        let uniqueCartItems = [...new Set(this.state.cartItems)];
+
+        console.log(uniqueCartItems);
+
+        this.state.uniqueCartItems = uniqueCartItems;
+
+        console.log(this.state);
+        let sum = 0;
+
+        this.state.uniqueCartItems.forEach((element) => {
+            console.log(element);
+
+            console.log(element.price * element.quantity);
+
+            sum += element.price * element.quantity;
+            
+        });
+
+        this.state.uniqueCartItems['sum'] = sum;
+
+        console.log(this.state.uniqueCartItems);
     }
 
     handleClose() {
@@ -54,60 +109,33 @@ class NavigationBar extends React.Component {
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Body>
                         <ListGroup as="ol">
-                            <ListGroup.Item
-                                as="li"
-                                className="d-flex justify-content-between align-items-start"
-                            >
-                                <div className="ms-2 me-auto">
-                                    <div className="fw-bold">Subheading</div>
 
-                                    <div className="cartItems">
-                                        <Button variant="danger">-</Button>
-                                        <InputGroup.Text>1</InputGroup.Text>
-                                        <Button variant="primary">+</Button>
-                                    </div>
-                                    
-                                </div>
-                                <Badge variant="primary" pill>
-                                    14
-                                </Badge>
-                            </ListGroup.Item>
-                            <ListGroup.Item
-                                as="li"
-                                className="d-flex justify-content-between align-items-start"
-                            >
-                                <div className="ms-2 me-auto">
-                                    <div className="fw-bold">Subheading</div>
+                            {/* Display the cart Items START */}
 
-                                    <div className="cartItems">
-                                        <Button variant="danger">-</Button>
-                                        <InputGroup.Text>1</InputGroup.Text>
-                                        <Button variant="primary">+</Button>
-                                    </div>
-                                    
-                                </div>
-                                <Badge variant="primary" pill>
-                                    14
-                                </Badge>
-                            </ListGroup.Item>
-                            <ListGroup.Item
-                                as="li"
-                                className="d-flex justify-content-between align-items-start"
-                            >
-                                <div className="ms-2 me-auto">
-                                    <div className="fw-bold">Subheading</div>
+                            {this.state.uniqueCartItems.map((response) => (
+                                <ListGroup.Item
+                                    as="li"
+                                    className="d-flex justify-content-between align-items-start"
+                                    key={response.id}
+                                >
+                                    <div className="ms-2 me-auto">
+                                        <div className="fw-bold">{response.title}</div>
 
-                                    <div className="cartItems">
-                                        <Button variant="danger">-</Button>
-                                        <InputGroup.Text>1</InputGroup.Text>
-                                        <Button variant="primary">+</Button>
+                                        <div className="cartItems">
+                                            <Button variant="danger">-</Button>
+                                            <InputGroup.Text>{response.quantity}</InputGroup.Text>
+                                            <Button variant="primary">+</Button>
+                                        </div>
+
+                                        <div className="cartItems-floatRight">&#8377;{response.quantity * response.price}</div>
+
                                     </div>
-                                    
-                                </div>
-                                <Badge variant="primary" pill>
-                                    14
-                                </Badge>
-                            </ListGroup.Item>
+
+                                </ListGroup.Item>
+                            ))}
+
+                            {/* Display the cart Items END */}
+
                         </ListGroup>
                     </Modal.Body>
                     <Modal.Footer>
@@ -119,10 +147,14 @@ class NavigationBar extends React.Component {
                             Save Changes
                         </Button> */}
                         {/* Events for closing modal END */}
-                        
+
                         <Button variant="danger">
                             Empty Cart
                         </Button>
+
+                        <div className="cartItems-floatRight">
+                         &#8377;{(parseFloat(this.state.uniqueCartItems['sum']).toFixed(2))}
+                        </div>
                     </Modal.Footer>
                 </Modal>
             </div>

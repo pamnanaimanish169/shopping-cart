@@ -42,10 +42,7 @@ class   ItemsCard    extends React.Component {
     }
 
     handleClick(element) {
-        console.log(element);
         this.state.cartItems.push(element);
-        console.log(this.state.cartItems);
-        console.log(this.state.cartItems.length);
 
         // Parent child communication
         this.props.changeLink(this.state.cartItems.length);
