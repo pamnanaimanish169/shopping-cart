@@ -13,9 +13,8 @@ import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 import { InputGroup } from 'react-bootstrap';
+ 
 
-
-const basAPIUrl = 'https://fakestoreapi.com/carts/user/2';
 
 class NavigationBar extends React.Component {
     constructor(props) {
@@ -26,7 +25,7 @@ class NavigationBar extends React.Component {
         this.state = {
             show: false,
             cartItems: [],
-            uniqueCartItems : []
+            uniqueCartItems : [],
         }
 
         this.handleClose = this.handleClose.bind(this);
@@ -34,61 +33,46 @@ class NavigationBar extends React.Component {
     }
 
     componentDidMount() {
-        console.log('i am inside componentDidMount');
-        console.log(this.props);
-
-
+        
     }
 
     handleShow() {
         this.setState({ show: true });
-        console.log(this.props);
 
         // Calculate the cart & update items accordingly
         this.state.cartItems = this.props.cartItems;
-
-        console.log(this.state.cartItems);
-
         const counts = {};
 
         this.state.cartItems.forEach((element) => {
             // change the quantity as per the count
             counts[element.title] = (counts[element.title] || 0)  + 1;
-
             element['quantity'] = counts[element.title];
-
-            // remove the duplicate item so that it dosen't appear again.
-
 
         });
 
-        console.log(counts);
-
+        // remove the duplicate item so that it dosen't appear again.
         let uniqueCartItems = [...new Set(this.state.cartItems)];
 
-        console.log(uniqueCartItems);
-
         this.state.uniqueCartItems = uniqueCartItems;
-
-        console.log(this.state);
         let sum = 0;
-
         this.state.uniqueCartItems.forEach((element) => {
-            console.log(element);
-
-            console.log(element.price * element.quantity);
-
             sum += element.price * element.quantity;
-            
         });
 
         this.state.uniqueCartItems['sum'] = sum;
 
-        console.log(this.state.uniqueCartItems);
+    }
+
+    handleEmptyCart() {
+        this.setState({uniqueCartItems : [],cartItems : []});
+        console.log(this.props);
+        window.location.reload(false);
+        
     }
 
     handleClose() {
         this.setState({ show: false });
+        
     }
 
     render() {
@@ -148,13 +132,17 @@ class NavigationBar extends React.Component {
                         </Button> */}
                         {/* Events for closing modal END */}
 
-                        <Button variant="danger">
+                        <Button variant="danger" onClick={this.handleEmptyCart.bind(this)}>
                             Empty Cart
                         </Button>
 
+                        {this.state.uniqueCartItems['sum'] > 0 ? 
                         <div className="cartItems-floatRight">
                          &#8377;{(parseFloat(this.state.uniqueCartItems['sum']).toFixed(2))}
                         </div>
+                        :
+                        <div className="cartItems-floatRight">&#8377;0</div>
+                        } 
                     </Modal.Footer>
                 </Modal>
             </div>
