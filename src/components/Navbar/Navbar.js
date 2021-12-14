@@ -13,7 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 import { InputGroup } from 'react-bootstrap';
- 
+import StripeCheckout from 'react-stripe-checkout';
 
 
 class NavigationBar extends React.Component {
@@ -25,15 +25,17 @@ class NavigationBar extends React.Component {
         this.state = {
             show: false,
             cartItems: [],
-            uniqueCartItems : [],
+            uniqueCartItems: [],
         }
 
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
+        this.handleSubtractItem = this.handleSubtractItem.bind(this);
+        this.handleAddItem = this.handleAddItem.bind(this);
     }
 
     componentDidMount() {
-        
+
     }
 
     handleShow() {
@@ -45,7 +47,7 @@ class NavigationBar extends React.Component {
 
         this.state.cartItems.forEach((element) => {
             // change the quantity as per the count
-            counts[element.title] = (counts[element.title] || 0)  + 1;
+            counts[element.title] = (counts[element.title] || 0) + 1;
             element['quantity'] = counts[element.title];
 
         });
@@ -64,16 +66,79 @@ class NavigationBar extends React.Component {
     }
 
     handleEmptyCart() {
-        this.setState({uniqueCartItems : [],cartItems : []});
+        this.setState({ uniqueCartItems: [], cartItems: [] });
         console.log(this.props);
         window.location.reload(false);
-        
+
     }
 
     handleClose() {
         this.setState({ show: false });
-        
     }
+
+    handleAddItem(item) {
+        console.log('add item');
+        console.log(item);
+
+        // For the sanity of calculation
+        if (item.quantity >= 0 && item.quantity < 10) {
+            item.quantity++;
+        }
+
+        console.log();
+
+        this.setState({ uniqueCartItems: this.state.uniqueCartItems });
+
+        let sum = 0;
+
+        this.state.uniqueCartItems.forEach((element) => {
+            sum += element.price * element.quantity;
+        });
+
+        this.state.uniqueCartItems['sum'] = sum;
+    }
+
+
+    handleSubtractItem(item) {
+        console.log('subtract item');
+        console.log(item);
+
+        if (item.quantity > 0) {
+            item.quantity--;
+        }
+
+        console.log();
+
+        this.setState({ uniqueCartItems: this.state.uniqueCartItems });
+
+        let sum = 0;
+
+        this.state.uniqueCartItems.forEach((element) => {
+            sum += element.price * element.quantity;
+        });
+
+        this.state.uniqueCartItems['sum'] = sum;
+    }
+
+    // Payment has been completed successfully
+    onToken = (token) => {
+        // This will be useful when we have a backend working and have to save tht token in our db
+        // fetch('/save-stripe-token', {
+        //     method : 'POST',
+        //     body : JSON.stringify(token),
+        // }).then(response => {
+        //     response.json().then(data => {
+        //         alert(`We are in business`);
+        //     })
+        // })
+        alert(`Payment is successfull`);
+
+        setTimeout(() => {
+            window.location.reload();
+        }, 500);
+    }
+
+
 
     render() {
         return (
@@ -106,9 +171,9 @@ class NavigationBar extends React.Component {
                                         <div className="fw-bold">{response.title}</div>
 
                                         <div className="cartItems">
-                                            <Button variant="danger">-</Button>
+                                            <Button variant="danger" onClick={() => { this.handleSubtractItem(response) }}>-</Button>
                                             <InputGroup.Text>{response.quantity}</InputGroup.Text>
-                                            <Button variant="primary">+</Button>
+                                            <Button variant="primary" onClick={() => { this.handleAddItem(response) }}>+</Button>
                                         </div>
 
                                         <div className="cartItems-floatRight">&#8377;{response.quantity * response.price}</div>
@@ -136,13 +201,29 @@ class NavigationBar extends React.Component {
                             Empty Cart
                         </Button>
 
-                        {this.state.uniqueCartItems['sum'] > 0 ? 
-                        <div className="cartItems-floatRight">
-                         &#8377;{(parseFloat(this.state.uniqueCartItems['sum']).toFixed(2))}
-                        </div>
-                        :
-                        <div className="cartItems-floatRight">&#8377;0</div>
-                        } 
+                        {/* Validation for 0 value */}
+                        {this.state.uniqueCartItems['sum'] > 0 ?
+                            <div className="cartItems-floatRight">
+                                &#8377;{(parseFloat(this.state.uniqueCartItems['sum']).toFixed(2))}
+                            </div>
+                            :
+                            <div className="cartItems-floatRight">&#8377;0</div>
+                        }
+
+                        {/* <div className="center">
+                            <Button variant="primary">Checkout</Button>
+                        </div> */}
+                        <StripeCheckout
+                            token={this.onToken}
+                            stripeKey="pk_test_51K6XtYSH7d8ej5zr9fteA32F9croyvN6m3jLpl7G3k77dA9v8x4jnh1vDqx31dRdSdDof4yM9LYQu6hrzcirOIix00pmVv12SA"
+                            amount={this.state.uniqueCartItems['sum'] * 100}
+                            currency="INR"
+                            billingAddress={true}
+                            zipcode={true}
+                        />
+
+
+
                     </Modal.Footer>
                 </Modal>
             </div>
