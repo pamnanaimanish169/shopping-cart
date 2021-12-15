@@ -1,3 +1,7 @@
+# About Project:
+
+Shopping Cart with checkout functionality in React.js.
+
 # Live URL:
 
 https://unruffled-almeida-38377d.netlify.app/
